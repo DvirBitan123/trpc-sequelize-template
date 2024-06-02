@@ -8,20 +8,20 @@ const client = createTRPCProxyClient<AppRouter>({
   })]
 })
 
-const connection = async  () => {
+const checkConnection = async  () => {
   const res = await client.sayHi.query();
   console.log('res:', res);
   return res
-}
+};
 
-const text = await connection()
+const Hi = await checkConnection();
 
 
 function App() {
   return (
     <div>
       <span>my name is   </span>
-      <span>{text}</span>
+      <span>{Hi}</span>
     </div>
   )
 }

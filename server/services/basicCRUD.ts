@@ -1,10 +1,11 @@
 import { Op } from "sequelize";
-import { ExampleModel2 } from "../models/sequelizeModels";
+import { Example } from "../models/sequelizeModels";
 
 export const getAll = async () => {
     try {
-      const allData = await ExampleModel2.findAll({raw: true});
+      const allData = await Example.findAll({raw: true});
       if (allData === undefined || null) {
+        console.log('error!!');
         throw new Error('data not found');
       }
       return allData
@@ -15,7 +16,7 @@ export const getAll = async () => {
 
 export const getById = async (ID: string) => {
     try {
-        const dataById = await ExampleModel2.findOne({where: { id : ID }});
+        const dataById = await Example.findOne({where: { id : ID }});
         if (dataById === undefined || null) {
             throw new Error('data not found');
         }
@@ -27,7 +28,7 @@ export const getById = async (ID: string) => {
 
 export const createNewInstance = async (ObjName: string ) => { // replace with the required data and type
     try {
-        const newObj = await ExampleModel2.create(
+        const newObj = await Example.create(
             { name: ObjName },
             { fields: ['name'] }, // allows which fields can be modyfied
         );
@@ -39,7 +40,7 @@ export const createNewInstance = async (ObjName: string ) => { // replace with t
 
 export const deleteByName = async (ObjName: string) => {
     try {
-        const deleteRes = ExampleModel2.destroy({
+        const deleteRes = Example.destroy({
             where : {
                 name: ObjName
             }
@@ -52,7 +53,7 @@ export const deleteByName = async (ObjName: string) => {
 
 export const deleteByIdOrName = async (ObjName: string, ID?: string) => {
     try {
-        const deleteRes = ExampleModel2.destroy({
+        const deleteRes = Example.destroy({
             where : {
                 [Op.or]: [{ id: ID }, { name: ObjName }],
             }
