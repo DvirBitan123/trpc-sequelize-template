@@ -1,5 +1,6 @@
 import { Op } from "sequelize";
 import { Example } from "../models/sequelizeModels";
+import { UpdateInput } from "../types/interfaces";
 
 export const getAll = async () => {
     try {
@@ -36,6 +37,18 @@ export const createNewInstance = async (ObjName: string ) => { // replace with t
     } catch (error) {
         throw error
     }
+};
+
+export const updateById = async (input: UpdateInput) => {
+  const {ID, nameToUpdate} = input;
+  try {
+    const updateRes  = await Example.update(
+      { name: nameToUpdate },
+      { where: { id: ID } },
+    );
+  } catch (error) {
+    throw error
+}
 };
 
 export const deleteByName = async (ObjName: string) => {
